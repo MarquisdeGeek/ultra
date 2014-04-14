@@ -27,14 +27,23 @@ It is intended for IoT and BigData applications.
 Compile:
 cd Release
 make
+cd ..
  
 
 Usage:
-ultra site_dir
-ultra site_dir runmode
-ultra site_dir runmode test
+Release/Ultra site_dir
+Release/Ultra site_dir runmode
+Release/Ultra site_dir runmode test
 
-Where runmode determine the type of configuration to use, e.g. develop/live, and 'test' is a simple
+site_dir defaults to 'site' if omitted, which contains a sample website.
+
+
+Then visit:
+
+http://localhost:8088
+
+
+runmode determines the type of configuration to use, e.g. develop/live, and 'test' is a simple
 test output for internal use only.
 
 It outputs its PID (for later use) to stdout, along with info/warning messages. Error messages are
