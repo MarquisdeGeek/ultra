@@ -1,3 +1,4 @@
+```
 .----------------. .----------------. .----------------. .----------------. .----------------. 
 | .--------------. | .--------------. | .--------------. | .--------------. | .--------------. |
 | | _____  _____ | | |   _____      | | |  _________   | | |  _______     | | |      __      | |
@@ -9,8 +10,9 @@
 | |              | | |              | | |              | | |              | | |              | |
 | '--------------' | '--------------' | '--------------' | '--------------' | '--------------' |
  '----------------' '----------------' '----------------' '----------------' '----------------' 
- 
-Ultra - Copyright 2014 Steven Goodwin. 
+```
+
+# Ultra - Copyright 2014 Steven Goodwin. 
 
 Released under the GNU GPL, version 3
 
@@ -25,23 +27,26 @@ It is intended for IoT and BigData applications.
 
 
 Compile:
+```
 cd Release
 make
 cd ..
- 
+```
 
 Usage:
+```
 Release/Ultra site_dir
 Release/Ultra site_dir runmode
 Release/Ultra site_dir runmode test
+```
 
 site_dir defaults to 'site' if omitted, which contains a sample website.
 
 
 Then visit:
-
+```
 http://localhost:8088
-
+```
 
 runmode determines the type of configuration to use, e.g. develop/live, and 'test' is a simple
 test output for internal use only.
@@ -51,41 +56,49 @@ sent to stderr.
 
 
 
-Whilst running:
+### Whilst running:
 
+```
 kill -SIGHUP pid  	; reload the config and data files
 kill -SIGUSR1 pid	; serialize/flush all data to disc
+```
 
 
+### Conventions:
 
-Conventions:
-
+```
 site/db/table_name			; name=value pairs, one on each line
 site/docs/view_files.htm	; all html/ascii content
 site/docs/assets/image.png	; all binary content
 site/config/ultra.conf		; name=value pairs. e.g. port=8088 also dev.port=8089 for 'dev' runmode
+```
 
+### Configuration: (inside ultra.conf)
 
-Configuration: (inside ultra.conf)
-
+```
 port=8123					; >1024
 usefork=true				; fork at each http request
 maxrequestsize=32768		; max size of request packet
+```
 
 To have different parameters for different runmodes simply prefix the name with the runmode,
 e.g.
 
+```
 live.port=8080
 develop.port=8081
+```
 
 You can then invoke this configuration automatically by selecting the 'runmode' with,
 
+```
 ultra site_dir live
+```
 
 as mentioned above.
 
 
-Database:
+### Database:
 
 It's a simple heirarchical name-value pair. Any text page (as found in site/docs) can
 use the format {db:users.3.name} to replace the {meta data} with the information from table
@@ -99,34 +112,34 @@ place whenever a page is loaded containing such a string.
 
 
 
-Meta commands:
+### Meta commands:
 
 All {commands} are processed when a page is requested. You can also nest them 
 
 Accessing and modifying the database:
-
+```
 {(db:table.id.field)}	; retrieve the field, and write to the stream
 {(db!:table.id.field)}	; retrieve the field, but don't echo it. Used for nested expressions
 {(db:table.id.field=n)}	; assign the number 'n' to the DB field
 {(db:table.id.field?n)}	; assign the number 'n' to the DB field, provided n is not empty
 {(db:table.id.field+n)}	; add the number 'n' to the DB field
 {(db:table.id.field-n)}	; substract the number 'n' to the DB field
-
+```
 Note: All =+-? can be used with the 'db' or 'db!' versions.
 
 By convention, the 'var' table is used to store local variables for processing. This allows us
 take a specific field by nesting the var in a DB request, like this:
-
+```
   {(db:users.{(db:var.id)}.name)}
+```
 
-
-Data processing:
+### Data processing:
 
 {(op.range:value minimum maximum)}	; writes the value, clamped to the given range
 
 
-Other commands include:
-
+### Other commands include:
+```
 {(day)}  {(month)}  {(year)}  {(hours)}  {(minutes)}  {(seconds)}
 {(home)}		; a link to the home page. i.e. /
 {(get:arg)}			; take the argument from the GET request, i.e. url?arg=1
@@ -139,9 +152,9 @@ Other commands include:
 {(dbdump:all)}		; write the current DB to the stream
 {(stats:all)}			; write the current logging stats (i.e. page accesses) to the stream
 {(rem:ignore this)}
+```
 
-
-Notes to developers:
+### Notes to developers:
 
 This is a 0.1 release for good reason - I started hacking around with the idea of a web server
 and got side-tracked by "real life"! My first code was 47 lines of C, which grew to 200 of C,
