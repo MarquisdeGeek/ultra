@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<!-- Website template by freewebsitetemplates.com -->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ultra - Web server example</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+	<div id="header">
+		<div>
+			<div class="logo">
+				<a href="default.htm"></a>
+			</div>
+			<ul id="navigation">
+				<li class="active">
+					<a href="default.htm">About Ultra</a>
+				</li>
+				<li>
+					<a href="database.htm">Database Example</a>
+				</li>
+				<li>
+					<a href="vote.htm">Vote Example</a>
+				</li>
+				<li>
+					<a href="info.htm">Internal Information</a>
+				</li>
+				<li>
+					<a href="contact.htm">Contact</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+

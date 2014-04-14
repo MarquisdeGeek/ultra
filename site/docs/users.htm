@@ -1,0 +1,44 @@
+
+{(rem:Store record index in a table called 'var' to mimic a variable)}
+{(rem:db! affects the DB, without writing the result back to the output)}
+{(db!:var.id={(get:id)})}
+
+{(rem:Since records are counted from 0, we sub 1 from the count to get the last record )}
+{(db!:var.maxrecord={(db.count:users)})}
+{(db!:var.maxrecord-1)}
+
+{(rem:We then use the limiter, separated by spaces)}
+{(db!:var.id={(op.range:{(db!:var.id)} 0 {(db!:var.maxrecord)})})}
+
+{(rem:Store the updated data)}
+{(db!:users.{(db:var.id)}.name?{(get:name)})}
+{(db!:users.{(db:var.id)}.age?{(get:age)})}
+{(db!:users.{(db:var.id)}.job?{(get:job)})}
+
+
+{(rem:Render the new info )}
+{(link:users.htm?id={(db:var.id-1)} Previous)}
+{(link:users.htm?id={(db:var.id+2)} Next)}
+
+
+{(rem:we're changing the var.id value, so we fix it here )}
+{(db!:var.id-1)}
+
+{(link:delete.htm?id={(db:var.id)} Delete this record)}
+
+User record:
+ID : {(db:var.id)} of {(db.count:users)}<br/>
+<form method="get" action="">
+<input type="hidden" name="id" value="{(db:var.id)}"></input></br>
+Name : <input type="text" name="name" value="{(db:users.{(db:var.id)}.name)}"></input></br>
+Age : <input type="text" name="age" value="{(db:users.{(db:var.id)}.age)}"></input></br>
+Occupation : <input type="text" name="job" value="{(db:users.{(db:var.id)}.job)}"></input></br>
+
+<input type="submit" value="Update">	
+</form>
+
+
+{(home)}
+
+
+

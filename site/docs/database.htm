@@ -1,0 +1,47 @@
+{(ssi:header)}
+
+
+{(rem:Store record index in a table called 'var' to mimic a variable)}
+{(rem:db! affects the DB, without writing the result back to the output)}
+{(db!:var.id={(get:id)})}
+
+
+{(rem:We use the range operator to stop other records being read. Each param is separated by spaces)}
+{(db!:var.id={(op.range:{(db!:var.id)} 1 {(db.count:users)})})}
+
+{(rem:Store the updated data, if it's present.)}
+{(db!:users.{(db:var.id)}.name?{(get:name)})}
+{(db!:users.{(db:var.id)}.dob?{(get:dob)})}
+{(db!:users.{(db:var.id)}.job?{(get:job)})}
+
+
+	<div id="contents">
+		<div class="section">
+			<h1>DB Example</h1>
+			<p>
+				You can update any data in the fields here, by amending it and clicking 'Update'.
+			</p>
+			<p>
+				Record ID : {(db:var.id)} of {(db.count:users)}
+			</p>
+			<form action="" method="get" class="message">
+				<input type="hidden" name="id" value="{(db:var.id)}"></input></br>
+				Name: <input type="text" name="name" value="{(db:users.{(db:var.id)}.name)}" onFocus="this.select();" onMouseOut="javascript:return false;"/>
+				Date of birth: <input type="text" name="dob" value="{(db:users.{(db:var.id)}.dob)}" onFocus="this.select();" onMouseOut="javascript:return false;"/>
+				Role: <input type="text" name="job" value="{(db:users.{(db:var.id)}.job)}" onFocus="this.select();" onMouseOut="javascript:return false;"/>
+				<input type="submit" value="Update"/>
+			</form>
+			
+			{(link:?id={(db:var.id-1)} Previous)}
+			{(link:?id={(db:var.id+2)} Next)}
+
+		</div>
+		<div class="section contact">
+			<p>
+				 <span>Current database state</span>{(dbdump:all)}
+		</p>
+		</div>
+	</div>
+
+{(ssi:footer)}
+

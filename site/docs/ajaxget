@@ -1,0 +1,4 @@
+Votes for {(db:votes.0.name)} = {(db:votes.0.count)}
+Votes for {(db:votes.1.name)} = {(db:votes.1.count)}
+Votes for {(db:votes.2.name)} = {(db:votes.2.count)}
+

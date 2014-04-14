@@ -1,0 +1,13 @@
+	<div id="footer">
+		<div class="clearfix">
+			<div id="connect">
+<a href="http://twitter.com/marquisdegeek" target="_blank" class="twitter"></a>
+			</div>
+			<p>
+				System time is {(hours)}:{(minutes)}:{(seconds)}.
+				© 2023 Zerotype and Steven Goodwin. All Rights Reserved.
+			</p>
+		</div>
+	</div>
+</body>
+</html>

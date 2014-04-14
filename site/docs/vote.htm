@@ -1,0 +1,42 @@
+{(ssi:header)}
+
+{(rem:This ia standard, but cut down, GET request)}
+<script type="text/javascript" src="assets/worker.js"></script>
+
+
+<script type="text/javascript">
+
+var u  = new Ultra("/");
+
+function getVoteData() {
+	u.get("ajaxget", function(data) { alert(data); });
+}
+
+</script>
+
+
+	<div id="contents">
+		<div id="about">
+			<h1>Voting example</h1>
+			<h2>Which was the best original Star Trek film?</h2>
+			<p>
+				{(link:vote?candidate=0 Vote for '{(db:votes.0.name)}')}
+			</p>
+			<p>
+				{(link:vote?candidate=1 Vote for '{(db:votes.1.name)}')}
+			</p>
+			<p>
+				{(link:vote?candidate=2 Vote for '{(db:votes.2.name)}')}
+			</p>
+			<p>
+				Or use AJAX to get the current results, <a href="#" onclick="javascript:getVoteData(); return false">click here</a>.
+
+			</p>
+			<p>
+				p.s. there is no need to even consider 1, 3, or 5, so why bother! ;)
+			</p>
+		</div>
+	</div>
+
+
+{(ssi:footer)}

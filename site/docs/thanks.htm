@@ -1,0 +1,34 @@
+{(ssi:header)}
+
+<script type="text/javascript">
+var votes = new Array();
+votes[0] = {(db:votes.0.count)};
+votes[1] = {(db:votes.1.count)};
+votes[2] = {(db:votes.2.count)};
+var total = votes[0] + votes[1] + votes[2];
+var width = 400;
+
+function writeVoteBar(idx) {
+	var barWidth = (votes[idx] / total) * width;
+	document.write("<img src='assets/red.jpg' height='30' width='" + barWidth+"'>");
+	document.write("&nbsp;(" + votes[idx] + ")");
+}
+</script>
+
+	<div id="contents">
+		<div id="about">
+			<h1>Voting Results</h1>
+			<h2>Thanks for voting!</h2>
+			<p>
+				<table border=0>
+					<tr><td>{(db:votes.0.name)}</td><td><script type="text/javascript">writeVoteBar(0);</script></td></tr>
+					<tr><td>{(db:votes.1.name)}</td><td><script type="text/javascript">writeVoteBar(1);</script></td></tr>
+					<tr><td>{(db:votes.2.name)}</td><td><script type="text/javascript">writeVoteBar(2);</script></td></tr>
+				</table>
+			</p>
+		</div>
+	</div>
+
+
+{(ssi:footer)}
+

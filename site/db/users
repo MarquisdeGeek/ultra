@@ -1,0 +1,17 @@
+users=
+users.1=
+users.1.name=James T. Kirk
+users.1.dob=2233
+users.1.job=Captain
+users.2=
+users.2.name=Spock
+users.2.dob=2230
+users.2.job=Federation Ambassador
+users.3=
+users.3.name=Scotty
+users.3.dob=2222
+users.3.job=Chief Engineer
+users.4=
+users.4.name=Uhuru
+users.4.dob=~2235
+users.4.job=Communications officer
