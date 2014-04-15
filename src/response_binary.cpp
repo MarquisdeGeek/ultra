@@ -15,6 +15,17 @@ UltraResponseBinary::UltraResponseBinary(const UltraConfig *pConfig, const sgxSt
 }
 
 bool
+UltraResponseBinary::writeHeader(UOutput *pOutput) {
+	bool rt = UltraResponse::writeHeader(pOutput);
+
+	sgxString size;
+	intToString(size, m_BinaryLength);
+	size = "Content-Length: " + size + ULTRA_EOL;
+
+	return rt && pOutput->write(size.c_str());
+}
+
+bool
 UltraResponseBinary::writeBody(UOutput *pOutput, const UltraRequest *pRequest/*UNUSED*/) const {
 	if (m_pBinaryData) {
 		return pOutput->write((const char *)m_pBinaryData, m_BinaryLength);

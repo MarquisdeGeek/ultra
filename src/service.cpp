@@ -87,13 +87,12 @@ Service::processPages() {
 void
 Service::writeHeader(UOutput *pOutput, const int code) {
 	char header[200];
-	sprintf(header, "HTTP/1.0 %d OK\r\n", code);
+	sprintf(header, "HTTP/1.0 %d OK%s", code, ULTRA_EOL);
 	pOutput->write(header, strlen(header));
 
 	pOutput->write("Server: ");
 	pOutput->write(ULTRA_VERSION);
-	pOutput->write("\r\n");
-
+	pOutput->write(ULTRA_EOL);
 }
 
 
@@ -125,7 +124,7 @@ Service::buildPage(UOutput *pOutput, const char *buffer) {
 
 		writeHeader(pOutput, 200);
 		pFileToServe->writeHeader(pOutput);
-		pOutput->write("\r\n\r\n");
+		pOutput->write(ULTRA_EOL);
 
 		pFileToServe->writeBody(pOutput, &request);
 

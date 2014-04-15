@@ -8,6 +8,7 @@
 UltraResponse::UltraResponse(const UltraConfig *pConfig, const sgxString &filename) : m_pConfig(pConfig) {
 	m_ContentType = "Content-type: ";
 	pConfig->getContentType(m_ContentType, filename);
+	m_ContentType += ULTRA_EOL;
 }
 
 UltraResponse::~UltraResponse() {

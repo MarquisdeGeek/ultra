@@ -5,6 +5,7 @@
 #include "types.hpp"
 #include "settings.hpp"
 
+#define ULTRA_EOL		"\r\n"
 
 #define LOG_ERROR		2
 #define LOG_WARNING		1
