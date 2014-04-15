@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/remap/base.cpp \
 ../src/remap/comment.cpp \
 ../src/remap/database_delete.cpp \
 ../src/remap/database_fieldcount.cpp \
@@ -13,7 +14,10 @@ CPP_SRCS += \
 ../src/remap/execute.cpp \
 ../src/remap/get_arguments.cpp \
 ../src/remap/link.cpp \
+../src/remap/null.cpp \
 ../src/remap/op_add.cpp \
+../src/remap/op_conditional.cpp \
+../src/remap/op_equal.cpp \
 ../src/remap/op_limit.cpp \
 ../src/remap/redirection.cpp \
 ../src/remap/serialize.cpp \
@@ -23,6 +27,7 @@ CPP_SRCS += \
 ../src/remap/time.cpp 
 
 OBJS += \
+./src/remap/base.o \
 ./src/remap/comment.o \
 ./src/remap/database_delete.o \
 ./src/remap/database_fieldcount.o \
@@ -32,7 +37,10 @@ OBJS += \
 ./src/remap/execute.o \
 ./src/remap/get_arguments.o \
 ./src/remap/link.o \
+./src/remap/null.o \
 ./src/remap/op_add.o \
+./src/remap/op_conditional.o \
+./src/remap/op_equal.o \
 ./src/remap/op_limit.o \
 ./src/remap/redirection.o \
 ./src/remap/serialize.o \
@@ -42,6 +50,7 @@ OBJS += \
 ./src/remap/time.o 
 
 CPP_DEPS += \
+./src/remap/base.d \
 ./src/remap/comment.d \
 ./src/remap/database_delete.d \
 ./src/remap/database_fieldcount.d \
@@ -51,7 +60,10 @@ CPP_DEPS += \
 ./src/remap/execute.d \
 ./src/remap/get_arguments.d \
 ./src/remap/link.d \
+./src/remap/null.d \
 ./src/remap/op_add.d \
+./src/remap/op_conditional.d \
+./src/remap/op_equal.d \
 ./src/remap/op_limit.d \
 ./src/remap/redirection.d \
 ./src/remap/serialize.d \

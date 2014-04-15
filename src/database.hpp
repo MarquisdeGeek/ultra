@@ -21,6 +21,7 @@ class UltraConfig;
 class UltraDB {
 public:
 	UltraDB();
+	~UltraDB();
 
 	bool	import(const sgxString &filename);
 

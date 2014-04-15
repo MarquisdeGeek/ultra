@@ -14,6 +14,11 @@ UltraResponseBinary::UltraResponseBinary(const UltraConfig *pConfig, const sgxSt
 	m_pBinaryData = ::slurp(filename, m_BinaryLength, 0);
 }
 
+UltraResponseBinary::~UltraResponseBinary() {
+	delete []m_pBinaryData;
+	m_pBinaryData = NULL;
+}
+
 bool
 UltraResponseBinary::writeHeader(UOutput *pOutput) {
 	bool rt = UltraResponse::writeHeader(pOutput);

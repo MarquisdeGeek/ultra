@@ -1,6 +1,6 @@
-#ifndef ULTRA_REMAP_BASE
+#ifndef ULTRA_REMAP_OP_CONDITIONAL
 
-#define ULTRA_REMAP_BASE		1
+#define ULTRA_REMAP_OP_CONDITIONAL		1
 
 #include "../types.hpp"
 
@@ -8,11 +8,10 @@ class UltraLine;
 class UltraConfigBase;
 class UltraRequest;
 
-class UltraRemap {
+class UltraRemapOpConditional : public UltraRemap {
 public:
-	virtual ~UltraRemap(){}
 
-	virtual void		process(sgxString &resultPattern, const sgxString &source) const = 0;
+	virtual void		process(sgxString &resultPattern, const sgxString &source) const;
 	virtual bool 		evaluate(sgxString &result, const UltraLine *pLine, const UltraRequest *pRequest) const;
 };
 

@@ -54,8 +54,8 @@ Service::Service(const UltraConfigSettings *pConfig)
 
 Service::~Service() {
 	delete m_pPages;
-	delete m_pData;
 	delete m_pConfig;
+	delete m_pData;
 }
 
 Service *
@@ -106,7 +106,7 @@ Service::buildPage(UOutput *pOutput, const char *buffer) {
 	// Also, {db:request.get.param}, also put? plus :client.ip :client.ua etc
 	// TODO: Mark some DBs as 'internal' to stop serialize writing them out to user space
 	// TODO: Improve, so the request object's not reconstructed each time
-	UltraRequest request(buffer);
+	UltraRequest request(buffer, m_pConfig);
 	request.addRemapWildcard("get:", new UltraRemapGetArguments(request));
 	request.addRemapWildcard("ssi:", new UltraRemapServerSideIncludes(this, &request));
 
@@ -115,7 +115,9 @@ Service::buildPage(UOutput *pOutput, const char *buffer) {
 	// This assumes a well-formed URL, beginning with a slash.
 	// Duplicate slashes means the map lookup fails. FIXME
 	sgxString url(m_pConfigSettings->m_RootPath);
-	url += "/docs" + request.m_URL;
+	url += "/docs";
+	url += request.m_URL;
+
 	UltraResponse *pFileToServe = m_pPages->m_PageList[url];
 
 

@@ -13,19 +13,19 @@
 				<a href="default.htm"></a>
 			</div>
 			<ul id="navigation">
-				<li class="active">
+				<li {(op.if:{(op.==:{(db!:var.nav.page)} 0)} class="active")}>
 					<a href="default.htm">About Ultra</a>
 				</li>
-				<li>
+				<li {(op.if:{(op.==:{(db!:var.nav.page)} 1)} class="active")}>
 					<a href="database.htm">Database Example</a>
 				</li>
-				<li>
+				<li {(op.if:{(op.==:{(db!:var.nav.page)} 2)} class="active")}>
 					<a href="vote.htm">Vote Example</a>
 				</li>
-				<li>
+				<li {(op.if:{(op.==:{(db!:var.nav.page)} 3)} class="active")}>
 					<a href="info.htm">Internal Information</a>
 				</li>
-				<li>
+				<li {(op.if:{(op.==:{(db!:var.nav.page)} 4)} class="active")}>
 					<a href="contact.htm">Contact</a>
 				</li>
 			</ul>

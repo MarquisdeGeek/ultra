@@ -13,20 +13,60 @@
 
 UltraConfigBase::UltraConfigBase()  {
 	m_pConfigData = new UltraDB();
+	m_pNullRemap = new UltraRemapNull();
 }
 
 UltraConfigBase::~UltraConfigBase() {
+	// Clear the remap objects
+	StaticMap::iterator it1 = m_Mapper.begin();
+	for(;it1!=m_Mapper.end();++it1) {
+		delete (*it1).second;
+	}
+	m_Mapper.clear();
 
+	StaticMap::iterator it2 = m_MapperWildcards.begin();
+	for(;it2!=m_MapperWildcards.end();++it2) {
+		delete (*it2).second;
+	}
+	m_MapperWildcards.clear();
+
+	// Clear the rest
+	delete m_pNullRemap;
+	delete m_pConfigData;
+
+	m_pConfigData = NULL;
+	m_pNullRemap = NULL;
+}
+
+const UltraRemap *
+UltraConfigBase::getNullRemap() const {
+	return m_pNullRemap;
+}
+
+const UltraRemap *
+UltraConfigBase::getRemap(const sgxString &source) const {
+
+	// Look for an exact mapping
+	if (m_Mapper.find(source) != m_Mapper.end() ) {
+		return m_Mapper.at(source);
+	}
+
+	// Try the wildcard list
+	StaticMap::const_iterator it = m_MapperWildcards.begin();
+	for(;it != m_MapperWildcards.end(); ++it) {
+		if (source.compare(0, (*it).first.length(), (*it).first) == 0) {
+			return (*it).second;
+		}
+	}
+
+	return NULL;
 }
 
 void
 UltraConfigBase::getRemapString(sgxString &target, const sgxString &source) const {
-	target = "";
-
 	// Look for an exact mapping
 	if (m_Mapper.find(source) != m_Mapper.end() ) {
-		m_Mapper.at(source)->process(target, source);
-		return;
+		return m_Mapper.at(source)->process(target, source);
 	}
 
 	// Try the wildcard list
@@ -34,8 +74,7 @@ UltraConfigBase::getRemapString(sgxString &target, const sgxString &source) cons
 	for(;it != m_MapperWildcards.end(); ++it) {
 		if (source.compare(0, (*it).first.length(), (*it).first) == 0) {
 			sgxString param = source.substr((*it).first.length());
-			(*it).second->process(target, param);
-			return;
+			return (*it).second->process(target, param);
 		}
 	}
 

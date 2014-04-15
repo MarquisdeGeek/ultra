@@ -30,6 +30,7 @@
 Service *				g_pData;
 
 namespace {
+	int 					g_SocketFileDescrip;
 	UltraConfigSettings * 	g_pConfiguration;
 	int						g_LogSeverity;
 }
@@ -82,6 +83,15 @@ void log(const int severity, const sgxString &format, ...) {
 
 
 
+void onExit() {
+	close(g_SocketFileDescrip);
+
+	delete g_pConfiguration;
+	delete g_pData;
+
+}
+
+
 void
 handleSerialize(int signum) {
 #if UBUILD_SUPPORT_RESAVE==1
@@ -130,6 +140,7 @@ void prepareSignalHandlers() {
 		 signal(SIGUSR1, SIG_IGN);
 	}
 #endif
+
 	signal(SIGCHLD, SIG_IGN);
 }
 
@@ -191,19 +202,19 @@ int main(int argc, const char *argv[])
 	g_pData->m_pConfig->getBoolean("usefork", useFork);
 	g_pData->m_pConfig->getSizeType("maxrequestsize", maxRequestSize);
 
-	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	g_SocketFileDescrip = socket(AF_INET, SOCK_STREAM, 0);
 	struct sockaddr_in serv_addr;
 	bzero((char *)&serv_addr, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_addr.s_addr = INADDR_ANY;
 	serv_addr.sin_port = htons(port);
 
-	if (bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr))) {
+	if (bind(g_SocketFileDescrip, (struct sockaddr *)&serv_addr, sizeof(serv_addr))) {
 		log(LOG_ERROR, "Can't bind to port.");
 		log(LOG_ERROR, strerror(errno));
 		return -1;
 	}
-	listen(sockfd, 5);
+	listen(g_SocketFileDescrip, 5);
 
 	prepareSignalHandlers();
 
@@ -217,11 +228,15 @@ int main(int argc, const char *argv[])
 	printf("Port = %d\n", port);
 	log(LOG_INFO, "Running...");
 
-	while (1) {
+	if (atexit(onExit)) {
+		log(LOG_ERROR, "Can't set up onExit handler. Resources will not be freed on exit.");
+	}
+
+	while (true) {
 		struct sockaddr_in clientaddr;
 		socklen_t clientaddr_sz = sizeof(clientaddr);
 
-		int cfd  = accept(sockfd, (struct sockaddr*)&clientaddr, &clientaddr_sz);
+		int cfd  = accept(g_SocketFileDescrip, (struct sockaddr*)&clientaddr, &clientaddr_sz);
 
 #if UBUILD_REQUEST_HANDLER==UBUILD_REQUEST_SINGLE_THREAD
 		int pid = 0;
@@ -284,6 +299,6 @@ int main(int argc, const char *argv[])
 
 		waitpid(-1, NULL, 1/*WNOHANG*/);
 	}
- 
+
 	return 0;
 }

@@ -13,8 +13,9 @@ public:
 	virtual bool getString(const sgxString &name, sgxString &value) const;
 
 public:
-	sgxString 		m_Verb;
-	sgxString 		m_URL;
+	sgxString 			m_Verb;
+	sgxString 			m_URL;
+	const UltraConfig *	m_pConfig;
 };
 
 #endif

@@ -7,7 +7,7 @@
 
 // TODO: Incoporate all features from here:
 // http://en.wikipedia.org/wiki/URL_normalization
-UltraRequest::UltraRequest(const sgxString &req, const UltraConfig *pConfig) {
+UltraRequest::UltraRequest(const sgxString &req, const UltraConfig *pConfig) : m_pConfig(pConfig) {
 	const int PARSE_VERB = 0;
 	const int PARSE_URL = 1;
 	const int PARSE_ARGUMENTS = 2;

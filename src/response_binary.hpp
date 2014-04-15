@@ -14,6 +14,8 @@ class UltraResponse;
 class UltraResponseBinary : public UltraResponse {
 public:
 	UltraResponseBinary(const UltraConfig *pConfig, const sgxString &filename);
+	virtual ~UltraResponseBinary();
+
 	virtual bool	writeHeader(UOutput *pOutput);
 	virtual bool	writeBody(UOutput *pOutput, const UltraRequest *pRequest = NULL) const;
 

@@ -3,6 +3,7 @@
 #define ULTRA_REMAP		1
 
 #include "base.hpp"
+#include "null.hpp"
 #include "time.hpp"
 #include "serialize.hpp"
 #include "execute.hpp"
@@ -15,6 +16,8 @@
 
 #include "op_limit.hpp"
 #include "op_add.hpp"
+#include "op_conditional.hpp"
+#include "op_equal.hpp"
 
 #include "database_fields.hpp"
 #include "database_fieldcount.hpp"

@@ -8,33 +8,39 @@ CPP_SRCS += \
 ../src/configbase.cpp \
 ../src/database.cpp \
 ../src/fileset.cpp \
+../src/request.cpp \
+../src/response.cpp \
+../src/response_binary.cpp \
+../src/response_text.cpp \
 ../src/service.cpp \
 ../src/ultra.cpp \
-../src/ultra_request.cpp \
-../src/utils.cpp \
-../src/webserver.cpp 
+../src/utils.cpp 
 
 OBJS += \
 ./src/config.o \
 ./src/configbase.o \
 ./src/database.o \
 ./src/fileset.o \
+./src/request.o \
+./src/response.o \
+./src/response_binary.o \
+./src/response_text.o \
 ./src/service.o \
 ./src/ultra.o \
-./src/ultra_request.o \
-./src/utils.o \
-./src/webserver.o 
+./src/utils.o 
 
 CPP_DEPS += \
 ./src/config.d \
 ./src/configbase.d \
 ./src/database.d \
 ./src/fileset.d \
+./src/request.d \
+./src/response.d \
+./src/response_binary.d \
+./src/response_text.d \
 ./src/service.d \
 ./src/ultra.d \
-./src/ultra_request.d \
-./src/utils.d \
-./src/webserver.d 
+./src/utils.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

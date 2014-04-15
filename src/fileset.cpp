@@ -72,6 +72,22 @@ UltraFileSet::UltraFileSet(const UltraConfig *pConfig) : m_pConfig(pConfig) {
 }
 
 UltraFileSet::~UltraFileSet() {
+	PageMap::iterator itPages = m_PageList.begin();
+	for(;itPages!=m_PageList.end();++itPages) {
+		delete (*itPages).second;
+	}
+
+	PageMap::iterator itAssets = m_AssetList.begin();
+	for(;itAssets!=m_AssetList.end();++itAssets) {
+		delete (*itAssets).second;
+	}
+
+	PageMap::iterator itDB = m_DBList.begin();
+	for(;itDB!=m_DBList.end();++itDB) {
+		delete (*itDB).second;
+	}
+
+
 #if UBUILD_LOCK_DATA_CHANGES==1
 	pthread_mutex_destroy(&m_Lock);
 #endif

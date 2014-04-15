@@ -26,6 +26,6 @@ UltraRemapServerSideIncludes::process(sgxString &resultPattern, const sgxString 
 	if (pFileToInclude) {
 		pFileToInclude->m_pContentRoot->process(resultPattern, m_pService->m_pConfig, m_pRequest);
 	} else {
-		resultPattern = "<Unknown SSI>";
+		resultPattern = "<!-- Unknown SSI -->";
 	}
 }

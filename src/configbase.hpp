@@ -18,6 +18,9 @@ public:
 	void	addRemap(const char *pSource, const UltraRemap *pRemap);
 	void	addRemapWildcard(const char *pSource, const UltraRemap *pRemap);
 
+	const UltraRemap *	getRemap(const sgxString &source) const;
+	const UltraRemap *	getNullRemap() const;
+
 	void	getRemapString(sgxString &target, const sgxString &source) const;
 
 	bool	getInteger(const sgxString &name, int &value) const;
@@ -30,7 +33,7 @@ public:
 
 protected:
 	UltraDB *			m_pConfigData;			// mostly const throughout its life, until restart
-
+	UltraRemap *		m_pNullRemap;
 private:
 	StaticMap			m_Mapper;
 	StaticMap			m_MapperWildcards;

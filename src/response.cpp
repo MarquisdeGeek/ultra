@@ -12,7 +12,7 @@ UltraResponse::UltraResponse(const UltraConfig *pConfig, const sgxString &filena
 }
 
 UltraResponse::~UltraResponse() {
-
+	m_pConfig = NULL;
 }
 
 bool

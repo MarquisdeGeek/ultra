@@ -10,11 +10,13 @@
 class UltraConfig : public UltraConfigBase {
 public:
 	UltraConfig(const UltraConfigSettings *pConfigSettings, UltraDB *pDatabase);
+	~UltraConfig();
 
 			void	getRootPath(sgxString &root) const;
 
 	virtual bool	getString(const sgxString &name, sgxString &value) const;
 			bool	getContentType(sgxString &type, const sgxString &filename) const;
+
 
 public:
 	UltraDB *			m_pAccessStats;			// dynamically updated on each request, globally

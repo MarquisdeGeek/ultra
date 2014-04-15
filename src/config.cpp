@@ -36,8 +36,11 @@ UltraConfig::UltraConfig(const UltraConfigSettings *pConfigSettings, UltraDB *pD
 	addRemapWildcard("dbdump:",	 	new UltraRemapDumpLiveData(m_pDatabase));
 	addRemapWildcard("stats:", 		new UltraRemapStats(m_pAccessStats));
 	addRemapWildcard("rem:",		new UltraRemapComment());
+
 	addRemapWildcard("op.range:",	new UltraRemapOpLimit());
 	addRemapWildcard("op.+:",		new UltraRemapOpAdd());
+	addRemapWildcard("op.if:",		new UltraRemapOpConditional());
+	addRemapWildcard("op.==:",		new UltraRemapOpEqual());
 
 	// TODO: Load other mappings from config into here
 
@@ -52,6 +55,10 @@ UltraConfig::UltraConfig(const UltraConfigSettings *pConfigSettings, UltraDB *pD
 
 }
 
+UltraConfig::~UltraConfig() {
+	delete m_pAccessStats;
+	delete m_pMIMETypes;
+}
 
 void
 UltraConfig::getRootPath(sgxString &root) const {
@@ -103,5 +110,3 @@ UltraConfig::getContentType(sgxString &type, const sgxString &filename) const {
 	type += "text/html";
 	return false;
 }
-
-

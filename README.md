@@ -12,11 +12,11 @@
  '----------------' '----------------' '----------------' '----------------' '----------------' 
 ```
 
-# Ultra - Copyright 2014 Steven Goodwin. 
+# Ultra - Copyright 2014 Steven Goodwin
 
 Released under the GNU GPL, version 3
 
-Version 0.1
+Version 0.1.1 - 15th April 2014
  
  
 
@@ -42,18 +42,17 @@ Release/Ultra site_dir runmode test
 
 site_dir defaults to 'site' if omitted, which contains a sample website.
 
-
-Then visit:
-```
-http://localhost:8088
-```
-
 runmode determines the type of configuration to use, e.g. develop/live, and 'test' is a simple
 test output for internal use only.
 
 It outputs its PID (for later use) to stdout, along with info/warning messages. Error messages are
 sent to stderr.
 
+
+Then visit:
+```
+http://localhost:8088
+```
 
 
 ### Whilst running:
@@ -71,12 +70,13 @@ site/db/table_name			; name=value pairs, one on each line
 site/docs/view_files.htm	; all html/ascii content
 site/docs/assets/image.png	; all binary content
 site/config/ultra.conf		; name=value pairs. e.g. port=8088 also dev.port=8089 for 'dev' runmode
+site/config/mime.conf		; name=value pairs holding the MIME types
 ```
 
 ### Configuration: (inside ultra.conf)
 
 ```
-port=8123					; >1024
+port=8088					; >1024 for normal users
 usefork=true				; fork at each http request
 maxrequestsize=32768		; max size of request packet
 ```
@@ -101,20 +101,20 @@ as mentioned above.
 ### Database:
 
 It's a simple heirarchical name-value pair. Any text page (as found in site/docs) can
-use the format {db:users.3.name} to replace the {meta data} with the information from table
+use the format {(db:users.3.name)} to replace the {(meta data)} with the information from table
 'users', where ID=3, and show the 'name' field.
 
 You may have any number of fields, tables,subfields, and IDs as you wish. They may also 
 be of any type.
 
-You can amend the data in the DB with the format: {db:users.3.name=Name name} It will take
+You can amend the data in the DB with the format: {(db:users.3.name=Name goes here)} It will take
 place whenever a page is loaded containing such a string.
 
 
 
 ### Meta commands:
 
-All {commands} are processed when a page is requested. You can also nest them 
+All {(commands)} are processed when a page is requested. You can also nest them. 
 
 Accessing and modifying the database:
 ```
@@ -136,6 +136,8 @@ take a specific field by nesting the var in a DB request, like this:
 ### Data processing:
 
 {(op.range:value minimum maximum)}	; writes the value, clamped to the given range
+{(op.==:value1 value2 value3)}		; writes either 1 or 0, according to whether all valueX arguments are identical
+{{op.if:condition true_case false_case_optional}}	; writes either true or false case, depending on condition
 
 
 ### Other commands include:

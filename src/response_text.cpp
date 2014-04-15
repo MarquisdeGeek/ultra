@@ -1,5 +1,6 @@
 #include "ultra.hpp"
 #include "output/base.hpp"
+#include "remap/base.hpp"
 
 #include "config.hpp"
 #include "response.hpp"
@@ -20,13 +21,34 @@ UltraResponseText::UltraResponseText(const UltraConfig *pConfig, const sgxString
 	if (pData) {
 		pData[length] = '\0';
 		parse(m_pContentRoot, NULL, pData);
+		m_pContentRoot->preprocess(pConfig);
 		delete []pData;
 	}
 }
 
 UltraResponseText::~UltraResponseText() {
-	//NOP
+	delete m_pContentRoot;
+	m_pContentRoot = NULL;
 }
+
+void
+UltraLine::preprocess(const UltraConfig *pConfig) {
+	if (m_bIsMeta) {
+		m_pRemap = pConfig->getRemap(m_szLine);
+	}
+
+	if (!m_pRemap) {
+		m_pRemap = pConfig->getNullRemap();
+	}
+
+	// Then process all the children nodes
+	std::vector<UltraLine *>::const_iterator cit = m_Children.begin();
+	for(;cit != m_Children.end();++cit) {
+		(*cit)->preprocess(pConfig);
+	}
+}
+
+
 
 /*
  * Split the content string according the meta variables on load,
@@ -72,9 +94,7 @@ UltraResponseText::writeBody(UOutput *pOutput, const UltraRequest *pRequest) con
 
 	sgxString r;
 	m_pContentRoot->process(r, m_pConfig, pRequest);
-	pOutput->write(r.c_str());
-
-	return true;
+	return pOutput->write(r.c_str());
 }
 
 
@@ -84,10 +104,15 @@ UltraResponseText::writeBody(UOutput *pOutput, const UltraRequest *pRequest) con
 UltraLine::UltraLine(UltraLine *pParent) {
 	m_pParent = pParent;
 	m_bIsMeta = false;
+	m_pRemap = NULL;
 
 	if (pParent) {
 		pParent->addChild(this);
 	}
+}
+
+UltraLine::~UltraLine() {
+	//NOP
 }
 
 void
@@ -95,33 +120,8 @@ UltraLine::addChild(UltraLine *pChild) {
 	m_Children.push_back(pChild);
 }
 
-
 bool
 UltraLine::process(sgxString &result, const UltraConfig *pConfig, const UltraRequest *pRequest) const {
-
-	// Start with ourselves, in a depth-first scan
-	sgxString childrenString(m_szLine);
-
-	// Then process all the children nodes
-	std::vector<UltraLine *>::const_iterator cit = m_Children.begin();
-	for(;cit != m_Children.end();++cit) {
-		(*cit)->process(childrenString, pConfig, pRequest);
-	}
-
-	// Then remap the completed string, if appropriate
-	if (m_bIsMeta) {
-		sgxString r1;
-		sgxString r2;
-
-		pConfig->getRemapString(r1, childrenString);
-		pRequest->getRemapString(r2, r1);
-
-		result += r2;
-
-	} else {
-		result += childrenString;
-	}
-
-	return true;
+	return m_pRemap->evaluate(result, this, pRequest);
 }
 

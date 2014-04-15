@@ -32,18 +32,28 @@ protected:
 
 // TODO: Move this into the .cpp to become opaque.
 // It's not currently done because SSI cheats during its process
+class UltraRemapOpConditional;
 class UltraLine {
 public:
 	UltraLine(UltraLine *pParent);
+	~UltraLine();
 
 	void	addChild(UltraLine *pParent);
 	bool	process(sgxString &result, const UltraConfig *pConfig, const UltraRequest *pRequest) const;
+	void	preprocess(const UltraConfig *pConfig);
 
 	sgxString					m_szLine;
 	bool						m_bIsMeta;		// indicates that post-processing needs to take place on szLine
+
+protected:
+	const UltraRemap *			m_pRemap;
+
 private:
 	UltraLine *					m_pParent;
 	std::vector<UltraLine *>	m_Children;
+
+	friend UltraRemapOpConditional;
+	friend UltraRemap;
 };
 
 

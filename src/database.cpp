@@ -93,6 +93,11 @@ UltraDB::UltraDB() {
 	m_pDataRoot = new DBEntry(NULL);
 }
 
+UltraDB::~UltraDB() {
+	delete m_pDataRoot;
+}
+
+
 bool
 UltraDB::import(const sgxString &filename) {
 	bool rt = true;
