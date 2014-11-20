@@ -54,6 +54,25 @@ Then visit:
 http://localhost:8088
 ```
 
+### Performance
+
+On my desktop PC, siege gives me:
+
+```
+Transactions:                   16654 hits
+Availability:                 100.00 %
+Elapsed time:                   6.40 secs
+Data transferred:              34.80 MB
+Response time:                  0.00 secs
+Transaction rate:            2602.19 trans/sec
+Throughput:                     5.44 MB/sec
+Concurrency:                    4.93
+Successful transactions:       16654
+Failed transactions:               0
+Longest transaction:            0.03
+Shortest transaction:           0.00
+```
+
 
 ### Whilst running:
 
