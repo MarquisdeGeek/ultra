@@ -52,8 +52,8 @@ private:
 	UltraLine *					m_pParent;
 	std::vector<UltraLine *>	m_Children;
 
-	friend UltraRemapOpConditional;
-	friend UltraRemap;
+	friend class UltraRemapOpConditional;
+	friend class UltraRemap;
 };
 
 
