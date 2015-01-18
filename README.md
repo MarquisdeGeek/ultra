@@ -169,9 +169,10 @@ take a specific field by nesting the var in a DB request, like this:
 {(link:file.htm The file)} ; a link with nicer anchor text
 {(redirect:url)}		; issues a command to the client to redirect
 {(exec:command args)}	; shell out to arbitrary command
-{(config:dump)}		; write the config to the stream
-{(dbdump:all)}		; write the current DB to the stream
-{(stats:all)}			; write the current logging stats (i.e. page accesses) to the stream
+{(config.dump:all)}		; write the config to the stream
+{(db.dump:all)}			; write the current DB to the stream
+{(mime.dump:all)}		; write the current MIME types table to the stream
+{(stats.dump:all)}		; write the current logging stats (i.e. page accesses) to the stream
 {(rem:ignore this)}
 ```
 
