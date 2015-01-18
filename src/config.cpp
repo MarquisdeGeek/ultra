@@ -31,10 +31,10 @@ UltraConfig::UltraConfig(const UltraConfigSettings *pConfigSettings, UltraDB *pD
 	addRemapWildcard("link:", 		new UltraRemapLink());
 	addRemapWildcard("redirect:", 	new UltraRemapRedirection());
 	addRemapWildcard("exec:", 		new UltraRemapExecute());
-	addRemapWildcard("config:", 	new UltraRemapDumpDB(m_pConfigData));
-	addRemapWildcard("mime:",	 	new UltraRemapDumpDB(m_pMIMETypes));
-	addRemapWildcard("dbdump:",	 	new UltraRemapDumpLiveData(m_pDatabase));
-	addRemapWildcard("stats:", 		new UltraRemapStats(m_pAccessStats));
+	addRemapWildcard("config.dump:",new UltraRemapDumpDB(m_pConfigData));
+	addRemapWildcard("mime.dump:",	new UltraRemapDumpDB(m_pMIMETypes));
+	addRemapWildcard("db.dump:",	new UltraRemapDumpLiveData(m_pDatabase));
+	addRemapWildcard("stats.dump:", new UltraRemapStats(m_pAccessStats));
 	addRemapWildcard("rem:",		new UltraRemapComment());
 
 	addRemapWildcard("op.range:",	new UltraRemapOpLimit());
