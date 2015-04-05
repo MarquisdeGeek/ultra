@@ -85,7 +85,7 @@ kill -SIGUSR1 pid	; serialize/flush all data to disc
 ### Conventions:
 
 ```
-site/db/table_name			; name=value pairs, one on each line
+site/db/table_name		; name=value pairs, one on each line
 site/docs/view_files.htm	; all html/ascii content
 site/docs/assets/image.png	; all binary content
 site/config/ultra.conf		; name=value pairs. e.g. port=8088 also dev.port=8089 for 'dev' runmode
@@ -95,8 +95,8 @@ site/config/mime.conf		; name=value pairs holding the MIME types
 ### Configuration: (inside ultra.conf)
 
 ```
-port=8088					; >1024 for normal users
-usefork=true				; fork at each http request
+port=8088			; >1024 for normal users
+usefork=true			; fork at each http request
 maxrequestsize=32768		; max size of request packet
 ```
 
@@ -154,21 +154,21 @@ take a specific field by nesting the var in a DB request, like this:
 
 ### Data processing:
 
-{(op.range:value minimum maximum)}	; writes the value, clamped to the given range
-{(op.==:value1 value2 value3)}		; writes either 1 or 0, according to whether all valueX arguments are identical
+{(op.range:value minimum maximum)}			; writes the value, clamped to the given range
+{(op.==:value1 value2 value3)}				; writes either 1 or 0, according to whether all valueX arguments are identical
 {{op.if:condition true_case false_case_optional}}	; writes either true or false case, depending on condition
 
 
 ### Other commands include:
 ```
 {(day)}  {(month)}  {(year)}  {(hours)}  {(minutes)}  {(seconds)}
-{(home)}		; a link to the home page. i.e. /
+{(home)}			; a link to the home page. i.e. /
 {(get:arg)}			; take the argument from the GET request, i.e. url?arg=1
 {(ssi:filename)}		; include the filename directly into the stream
 {(link:file.htm)}		; a link
-{(link:file.htm The file)} ; a link with nicer anchor text
+{(link:file.htm The file)} 	; a link with nicer anchor text
 {(redirect:url)}		; issues a command to the client to redirect
-{(exec:command args)}	; shell out to arbitrary command
+{(exec:command args)}		; shell out to arbitrary command
 {(config.dump:all)}		; write the config to the stream
 {(db.dump:all)}			; write the current DB to the stream
 {(mime.dump:all)}		; write the current MIME types table to the stream
