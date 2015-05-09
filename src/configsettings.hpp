@@ -8,9 +8,9 @@ public:
 	sgxString 	m_RootPath;
 	sgxString 	m_Configuration;
 
-	UltraConfigSettings(const sgxString &root, const sgxString &config) {
-		m_RootPath = root;
-		m_Configuration = config;
+	UltraConfigSettings(const sgxString &root, const sgxString &config) :
+		m_RootPath(root),
+		m_Configuration(config) {
 	}
 };
 

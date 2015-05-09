@@ -2,12 +2,12 @@
 #include "static.hpp"
 
 
-UltraRemapStatic::UltraRemapStatic(sgxString &target) {
-	m_Result = target;
+UltraRemapStatic::UltraRemapStatic(sgxString &target) :
+	m_Result(target) {
 }
 
-UltraRemapStatic::UltraRemapStatic(const char *pTarget) {
-	m_Result = pTarget;
+UltraRemapStatic::UltraRemapStatic(const char *pTarget) :
+	m_Result(pTarget) {
 }
 
 void	
